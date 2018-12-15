@@ -45,6 +45,7 @@ class IndexState extends State<Index>{
     );
     /*-----bottom nav end-------*/
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: _pageList[_currentIndex],
         bottomNavigationBar: _bottomNavigationBar,

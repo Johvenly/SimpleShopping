@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'search_bar_delegate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget{
   State<StatefulWidget> createState() => new HomeState();
@@ -43,14 +44,60 @@ class HomeState extends State{
       ),
     );
     Widget _body = new Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
       child: new ListView(
         children: <Widget>[
           // Image.asset('assets/images/lake.jpg',width: 300.0,height: 240.0,fit: BoxFit.cover,),
           // titleSection,
           new Stack(
             children: <Widget>[
-              Image.asset('assets/images/lake.jpg',width: 600.0,height: 180.0,fit: BoxFit.cover,)
+              Image.asset('assets/images/slide01.jpg',width: 600.0,height: 180.0,fit: BoxFit.cover,)
             ],
+          ),
+          new Container(
+            child: new ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(icon: Image.asset('assets/images/short01.jpg', fit: BoxFit.cover,),iconSize:80, padding: EdgeInsets.all(0),),
+                    Text('男鞋'),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    IconButton(icon: Image.asset('assets/images/short02.jpg', fit: BoxFit.cover,),iconSize:80, padding: EdgeInsets.all(0),),
+                    Text('商务皮鞋'),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    IconButton(icon: Image.asset('assets/images/short03.jpg', fit: BoxFit.cover,),iconSize:80, padding: EdgeInsets.all(0),),
+                    Text('运动鞋'),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    IconButton(icon: Image.asset('assets/images/short04.jpg', fit: BoxFit.cover,),iconSize:80, padding: EdgeInsets.all(0),),
+                    Text('篮球鞋'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          new Container(
+            child: new Row(
+              children: <Widget>[
+                Icon(FontAwesomeIcons.fire, color: Color.fromARGB(255, 255, 44, 37),),
+                Text(' 热销单品'),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.center,
+            ),
+            padding: EdgeInsets.all(8),
           ),
           new Container(
             child: Column(
@@ -100,13 +147,14 @@ class HomeState extends State{
       ),
     );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Color.fromARGB(255, 255, 44, 37),
-          title: new Text('易鞋商城', style: TextStyle(color: Colors.white),),
+          title: Image.asset('assets/images/logo.png', fit: BoxFit.cover, height: 45,),
           leading: IconButton(
-            icon: Icon(Icons.filter_list, color: Colors.white, size: 30,)
+            icon: Icon(Icons.format_list_bulleted, color: Colors.white, size: 30,)
           ),
           actions: <Widget>[
             IconButton(

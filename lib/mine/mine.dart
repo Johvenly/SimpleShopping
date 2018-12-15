@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Mine extends StatefulWidget{
   State<StatefulWidget> createState() => new MineState();
@@ -7,6 +8,21 @@ class Mine extends StatefulWidget{
 class MineState extends State{
   @override
   Widget build(BuildContext context){
+    Widget Badge(String text, {Color color = Colors.red, double bwidth = 20.0, double bheight = 20.0}){
+      return new Container(
+        child: Text(text, style: TextStyle(color: color, fontSize: 10),),
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(100)),
+          color: Colors.white,
+        ),
+        width: bwidth,
+        height: bheight,
+        alignment: AlignmentDirectional.center,
+        padding: EdgeInsets.all(2),
+      );
+    }
+
     Widget _body = new Container(
       child: new ListView(
         children: <Widget>[
@@ -31,23 +47,82 @@ class MineState extends State{
           /**Gold Box */
           new Row(
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text('235', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
-                  Text('关注')
-                ],
+              RawMaterialButton(
+                constraints: BoxConstraints(minWidth: 0),
+                child: new Stack(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Icon(Icons.payment, size: 45, color: Colors.black87,),
+                        Text('待付款', style: TextStyle(color: Colors.black54,),),
+                      ],
+                    ),
+                  ],
+                  alignment: AlignmentDirectional.topEnd,
+                ),
+                onPressed: (){},
               ),
-              Column(
-                children: <Widget>[
-                  Text('250', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
-                  Text('粉丝')
-                ],
+              RawMaterialButton(
+                constraints: BoxConstraints(minWidth: 0),
+                child: new Stack(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Icon(Icons.card_giftcard, size: 45, color: Colors.black87,),
+                        Text('待发货', style: TextStyle(color: Colors.black54,),),
+                      ],
+                    ),
+                    Positioned(top: 0, child: Badge('8'),),
+                  ],
+                  alignment: AlignmentDirectional.topEnd,
+                ),
+                onPressed: (){},
               ),
-              Column(
-                children: <Widget>[
-                  Text('356', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
-                  Text('积分')
-                ],
+              RawMaterialButton(
+                constraints: BoxConstraints(minWidth: 0),
+                child: new Stack(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Icon(Icons.local_taxi, size: 45, color: Colors.black87,),
+                        Text('待收货', style: TextStyle(color: Colors.black54,),),
+                      ],
+                    ),
+                    Positioned(top: 0, child: Badge('2'),),
+                  ],
+                  alignment: AlignmentDirectional.topEnd,
+                ),
+                onPressed: (){},
+              ),
+              RawMaterialButton(
+                constraints: BoxConstraints(minWidth: 0),
+                child: new Stack(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Icon(Icons.message, size: 45, color: Colors.black87,),
+                        Text('待评价', style: TextStyle(color: Colors.black54,),),
+                      ],
+                    ),
+                  ],
+                  alignment: AlignmentDirectional.topEnd,
+                ),
+                onPressed: (){},
+              ),
+              RawMaterialButton(
+                constraints: BoxConstraints(minWidth: 0),
+                child: new Stack(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Icon(Icons.autorenew, size: 45, color: Colors.black87,),
+                        Text('退款/售后', style: TextStyle(color: Colors.black54,),),
+                      ],
+                    ),
+                  ],
+                  alignment: AlignmentDirectional.topEnd,
+                ),
+                onPressed: (){},
               ),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,7 +133,12 @@ class MineState extends State{
                 new Container(
                   child: new Row(
                     children: <Widget>[
-                      Text('学习记录', style: TextStyle(fontSize: 16),),
+                      Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.list, size: 16, color: Colors.red,),
+                          Text('  我的订单', style: TextStyle(fontSize: 16),)
+                        ],
+                      ),
                       Icon(Icons.chevron_right, color: Colors.grey,)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +149,12 @@ class MineState extends State{
                 new Container(
                   child: new Row(
                     children: <Widget>[
-                      Text('我的订单', style: TextStyle(fontSize: 16),),
+                      Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.star, size: 18, color: Colors.yellow[700],),
+                          Text('  收藏商品', style: TextStyle(fontSize: 16),)
+                        ],
+                      ),
                       Icon(Icons.chevron_right, color: Colors.grey,)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +165,12 @@ class MineState extends State{
                 new Container(
                   child: new Row(
                     children: <Widget>[
-                      Text('充值记录', style: TextStyle(fontSize: 16),),
+                      Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.addressBook, size: 18, color: Colors.black45,),
+                          Text('  地址管理', style: TextStyle(fontSize: 16),)
+                        ],
+                      ),
                       Icon(Icons.chevron_right, color: Colors.grey,)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +181,12 @@ class MineState extends State{
                 new Container(
                   child: new Row(
                     children: <Widget>[
-                      Text('意见反馈', style: TextStyle(fontSize: 16),),
+                      Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.clock, size: 18, color: Colors.black45,),
+                          Text('  最近浏览', style: TextStyle(fontSize: 16),)
+                        ],
+                      ),
                       Icon(Icons.chevron_right, color: Colors.grey,)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +197,12 @@ class MineState extends State{
                 new Container(
                   child: new Row(
                     children: <Widget>[
-                      Text('常见问题', style: TextStyle(fontSize: 16),),
+                      Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.weixin, size: 18, color: Colors.black45,),
+                          Text('  意见反馈', style: TextStyle(fontSize: 16),)
+                        ],
+                      ),
                       Icon(Icons.chevron_right, color: Colors.grey,)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +213,12 @@ class MineState extends State{
                 new Container(
                   child: new Row(
                     children: <Widget>[
-                      Text('设置', style: TextStyle(fontSize: 16),),
+                      Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.cog, size: 18, color: Colors.black45,),
+                          Text('  设置', style: TextStyle(fontSize: 16),)
+                        ],
+                      ),
                       Icon(Icons.chevron_right, color: Colors.grey,)
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,7 +229,7 @@ class MineState extends State{
               ],
             ),
             margin: EdgeInsets.only(top: 15),
-            padding: EdgeInsets.only(left: 8),
+            padding: EdgeInsets.only(left: 12),
             decoration: BoxDecoration(
               border: Border(top: BorderSide(style: BorderStyle.solid, width: 10, color: Colors.grey[200]))
             ),
@@ -134,6 +239,7 @@ class MineState extends State{
     );
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           elevation: 0,
