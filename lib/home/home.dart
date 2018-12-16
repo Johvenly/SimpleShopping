@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'search_bar_delegate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import '../public/badge.dart';
 
 class Home extends StatefulWidget{
   State<StatefulWidget> createState() => new HomeState();
@@ -9,54 +11,35 @@ class Home extends StatefulWidget{
 class HomeState extends State{
   @override
   Widget build(BuildContext context){
-    Widget titleSection = Container(
-      padding: const EdgeInsets.all(32.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    'Oeschinen Lake Campground',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text(
-                  'Kandersteg, Switzerland',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          Text('41'),
-        ],
-      ),
-    );
+    List _slides = <Widget>[
+      Image.asset('assets/images/slide01.jpg', fit: BoxFit.cover,),
+      Image.asset('assets/images/slide03.jpg', fit: BoxFit.cover,),
+      Image.asset('assets/images/slide04.jpg', fit: BoxFit.cover,),
+    ];
     Widget _body = new Container(
       decoration: BoxDecoration(
         color: Colors.white,
       ),
       child: new ListView(
         children: <Widget>[
-          // Image.asset('assets/images/lake.jpg',width: 300.0,height: 240.0,fit: BoxFit.cover,),
-          // titleSection,
-          new Stack(
-            children: <Widget>[
-              Image.asset('assets/images/slide01.jpg',width: 600.0,height: 180.0,fit: BoxFit.cover,)
-            ],
-          ),
           new Container(
+            width: MediaQuery.of(context).size.width,
+            height: 180.0,
+            child: Swiper.children(
+              children: _slides,
+              pagination: new SwiperPagination(
+                builder: DotSwiperPaginationBuilder(
+                  color: Colors.black54,
+                  activeColor: Colors.red,
+                )
+              ),
+              control: null,
+              autoplay: true,
+              onTap: (index) => print('点击了第$index个'),
+            )
+          ),
+          new Padding(
+            padding: EdgeInsets.all(0),
             child: new ButtonBar(
               alignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -89,7 +72,7 @@ class HomeState extends State{
               ],
             ),
           ),
-          new Container(
+          new Padding(
             child: new Row(
               children: <Widget>[
                 Icon(FontAwesomeIcons.fire, color: Color.fromARGB(255, 255, 44, 37),),
@@ -99,50 +82,71 @@ class HomeState extends State{
             ),
             padding: EdgeInsets.all(8),
           ),
-          new Container(
-            child: Column(
+          new Padding(
+            padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+            child: new Stack(
+              alignment: AlignmentDirectional.topEnd,
               children: <Widget>[
-                Text('100秒套餐', style: TextStyle(color: Colors.white, fontSize: 22),),
-                Text('用于消费100秒的套餐', style: TextStyle(color: Colors.white, fontSize: 16, height: 1.5),),
-                new Row(
-                  children: <Widget>[
-                    new RaisedButton(
-                      padding: EdgeInsets.only(top:8, bottom:8, left: 30, right: 30),
-                      child: Text('立即购买', style: TextStyle(color: Colors.orange),),
-                      color: Colors.white,
-                      disabledColor: Colors.white,
-                      elevation: 3,
-                      highlightElevation: 3,
-                      disabledElevation: 3,
-                      shape: RoundedRectangleBorder(side: BorderSide(color: Colors.white), borderRadius: BorderRadius.all(Radius.circular(50))),
-                      onPressed: (){
-                        // new AlertDialog(
-                        //   title: Text('sfsf', style: TextStyle(color: Colors.black),),
-                        //   content: new Text("This is my content"),
-                        // );
-                        showDialog(
-                          context: context,
-                          child: new AlertDialog(
-                            title: Text('温馨提示'),
-                            content: Text('当前不能购买'),
-                          ),
-                        );
-                      },
-                    ),
-                    Text('¥200.00', style: TextStyle(color: Colors.white, fontSize: 24),)
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Image.asset('assets/images/ad05.jpg', width: MediaQuery.of(context).size.width, fit: BoxFit.cover,),
+                new Badge('正在热销', color: Colors.red,),
+              ],
+            ),
+          ),
+          new Container(
+            height: 120,
+            padding: EdgeInsets.all(8),
+            child: new Row(
+              children: <Widget>[
+                Expanded(
+                  child: new Padding(
+                    padding: EdgeInsets.only(right: 2),
+                    child: Image.asset('assets/images/ad06.jpg', fit: BoxFit.cover,),
+                  ),
+                ),
+                Expanded(
+                  child: new Padding(
+                    padding: EdgeInsets.only(left: 2),
+                    child: Image.asset('assets/images/ad07.jpg', fit: BoxFit.cover,),
+                  ),
                 )
               ],
-              crossAxisAlignment: CrossAxisAlignment.start,
             ),
-            margin: EdgeInsets.all(15),
-            padding: EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
-            decoration: BoxDecoration(
-              color: Colors.orangeAccent,
-              borderRadius: BorderRadius.all(Radius.circular(8))
+          ),
+          new Padding(
+            child: new Row(
+              children: <Widget>[
+                Icon(FontAwesomeIcons.award, color: Color.fromARGB(255, 255, 44, 37),),
+                Text(' 新品上市'),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.center,
             ),
-          )
+            padding: EdgeInsets.all(8),
+          ),
+          new Container(
+            height: 160,
+            child: new ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 4),
+                  child: Image.asset('assets/images/ad01.jpg', fit: BoxFit.fitHeight,),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 4),
+                  child: Image.asset('assets/images/ad02.jpg', fit: BoxFit.fitHeight,),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 4),
+                  child: Image.asset('assets/images/ad03.jpg', fit: BoxFit.fitHeight,),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(0),
+                  child: Image.asset('assets/images/ad04.jpg', fit: BoxFit.fitHeight,),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.all(8),
+          ),
         ],
       ),
     );

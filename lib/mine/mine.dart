@@ -27,21 +27,25 @@ class MineState extends State{
       child: new ListView(
         children: <Widget>[
           /**Avatar Box */
-          new Container(
-            height: 180,
-            margin: EdgeInsets.only(bottom: 20),
-            decoration: new BoxDecoration(
-              color: Color.fromARGB(255, 255, 44, 37),
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))
-            ),
-            child: new Column(
-              children: <Widget>[
-                new CircleAvatar(backgroundImage: new AssetImage('assets/images/avatar.jpg'), radius: 50),
-                new Container(
-                  child: Text('Johwen Chou', style: TextStyle(color: Colors.white, fontSize: 16),),
-                  margin: EdgeInsets.only(top: 8),
-                )
-              ],
+          new Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: ClipPath(
+              clipper: BottomClipper(),
+              child: new Container(
+                height: 180,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 44, 37),
+                ),
+                child: new Column(
+                  children: <Widget>[
+                    new CircleAvatar(backgroundImage: new AssetImage('assets/images/avatar.jpg'), radius: 50),
+                    new Container(
+                      child: Text('Johwen Chou', style: TextStyle(color: Colors.white, fontSize: 16),),
+                      margin: EdgeInsets.only(top: 8),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
           /**Gold Box */
@@ -261,4 +265,29 @@ class MineState extends State{
       ),
     );
   }
+}
+
+class BottomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0.0, size.height - 30);
+    var firstControlPoint = Offset(size.width / 5, size.height);
+    var firstPoint = Offset(size.width / 2, size.height);
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstPoint.dx, firstPoint.dy);
+
+    var secondControlPoint = Offset(size.width - (size.width / 5), size.height);
+    var secondPoint = Offset(size.width, size.height - 30);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
+        secondPoint.dx, secondPoint.dy);
+
+    path.lineTo(size.width, 0.0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

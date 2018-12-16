@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 class SearchBarDelegate extends SearchDelegate<String> {
-  final String searchFieldLabel = 'sfsf';
-  // MaterialLocalizations.of(context).searchFieldLabel
-
   @override
   ThemeData appBarTheme(BuildContext context){
     assert(context != null);
