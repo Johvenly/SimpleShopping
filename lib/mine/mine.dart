@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../public/badge.dart';
 
 class Mine extends StatefulWidget{
   State<StatefulWidget> createState() => new MineState();
@@ -9,17 +10,21 @@ class MineState extends State{
   @override
   Widget build(BuildContext context){
     Widget Badge(String text, {Color color = Colors.red, double bwidth = 20.0, double bheight = 20.0}){
-      return new Container(
-        child: Text(text, style: TextStyle(color: color, fontSize: 10),),
-        decoration: BoxDecoration(
-          border: Border.all(color: color, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(100)),
-          color: Colors.white,
+      return new ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: bwidth,
+          minHeight: bheight,
         ),
-        width: bwidth,
-        height: bheight,
-        alignment: AlignmentDirectional.center,
-        padding: EdgeInsets.all(2),
+        child: new Container(
+          child: Text(text, style: TextStyle(color: color, fontSize: 10),),
+          decoration: BoxDecoration(
+            border: Border.all(color: color, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            color: Colors.white,
+          ),
+          alignment: AlignmentDirectional.center,
+          padding: EdgeInsets.all(2),
+        ),
       );
     }
 
@@ -69,6 +74,7 @@ class MineState extends State{
               RawMaterialButton(
                 constraints: BoxConstraints(minWidth: 0),
                 child: new Stack(
+                  overflow: Overflow.visible,
                   children: <Widget>[
                     Column(
                       children: <Widget>[
@@ -76,7 +82,7 @@ class MineState extends State{
                         Text('待发货', style: TextStyle(color: Colors.black54,),),
                       ],
                     ),
-                    Positioned(top: 0, child: Badge('8'),),
+                    new BadgeUnreaded(13),
                   ],
                   alignment: AlignmentDirectional.topEnd,
                 ),
@@ -85,6 +91,7 @@ class MineState extends State{
               RawMaterialButton(
                 constraints: BoxConstraints(minWidth: 0),
                 child: new Stack(
+                  overflow: Overflow.visible,
                   children: <Widget>[
                     Column(
                       children: <Widget>[
@@ -92,7 +99,7 @@ class MineState extends State{
                         Text('待收货', style: TextStyle(color: Colors.black54,),),
                       ],
                     ),
-                    Positioned(top: 0, child: Badge('2'),),
+                    new BadgeUnreaded(5),
                   ],
                   alignment: AlignmentDirectional.topEnd,
                 ),

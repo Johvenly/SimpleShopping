@@ -155,10 +155,11 @@ class HomeState extends State{
       home: Scaffold(
         appBar: AppBar(
           elevation: 0,
+          centerTitle: true,
           backgroundColor: Color.fromARGB(255, 255, 44, 37),
           title: Image.asset('assets/images/logo.png', fit: BoxFit.cover, height: 45,),
           leading: IconButton(
-            icon: Icon(Icons.format_list_bulleted, color: Colors.white, size: 30,)
+            icon: Icon(FontAwesomeIcons.alignLeft, color: Colors.white, size: 22,)
           ),
           actions: <Widget>[
             IconButton(

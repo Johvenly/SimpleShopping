@@ -15,6 +15,7 @@ class BuycarState extends State{
       home: Scaffold(
         appBar: AppBar(
           elevation: 0,
+          centerTitle: true,
           backgroundColor: Color.fromARGB(255, 255, 44, 37),
           title: Text('购物车'),
           actions: <Widget>[
