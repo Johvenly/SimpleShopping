@@ -9,25 +9,6 @@ class Mine extends StatefulWidget{
 class MineState extends State{
   @override
   Widget build(BuildContext context){
-    Widget Badge(String text, {Color color = Colors.red, double bwidth = 20.0, double bheight = 20.0}){
-      return new ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: bwidth,
-          minHeight: bheight,
-        ),
-        child: new Container(
-          child: Text(text, style: TextStyle(color: color, fontSize: 10),),
-          decoration: BoxDecoration(
-            border: Border.all(color: color, width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: Colors.white,
-          ),
-          alignment: AlignmentDirectional.center,
-          padding: EdgeInsets.all(2),
-        ),
-      );
-    }
-
     Widget _body = new Container(
       child: new ListView(
         children: <Widget>[
