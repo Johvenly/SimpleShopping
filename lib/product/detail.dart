@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:event_bus/event_bus.dart';
+
+EventBus eventBus = new EventBus();
+
+class DataInterEvent {
+  Map pageGlobalData;
+ 
+  DataInterEvent({this.pageGlobalData});
+}
 
 class Detail extends StatefulWidget{
   final String title;
@@ -8,7 +17,35 @@ class Detail extends StatefulWidget{
 }
 
 class DetailState extends State<Detail> with TickerProviderStateMixin {
-  int buycount = 1;
+  //初始化页面数据
+  Map pageRowData = new Map();
+
+  @override
+  void initState() {
+    super.initState();
+
+    //初始化页面数据
+    pageRowData = {
+      'price': 89.8,
+      'number': '0021',
+      'specifications': <Map>[
+        {'id': 1, 'name': '44'},
+        {'id': 2, 'name': '43'},
+        {'id': 3, 'name': '42'},
+        {'id': 4, 'name': '41'},
+        {'id': 5, 'name': '40'},
+        {'id': 6, 'name': '39'}
+      ],
+      'selectSpecIndex': 0,
+      'quantity': 1,
+    };
+
+    eventBus.on<DataInterEvent>().listen((DataInterEvent data) =>
+      setState(() {
+        pageRowData = data.pageGlobalData;
+      })
+    );
+  }
 
   @override
   Widget build(BuildContext context){
@@ -41,10 +78,9 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
               icon: Icon(Icons.share, color: Colors.white,),
               onPressed: (){
                 //弹出面板
-                showBottomSheet<State>(
-                  context: context,
-                  builder: (BuildContext context){
-                    return new bottomSheetDliog();
+                Scaffold.of(context).showBottomSheet(
+                  (BuildContext context){
+                    return new bottomSheetDliog(pageRowData: pageRowData);
                   }
                 );
               },
@@ -62,7 +98,7 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
         children: <Widget>[
           new Padding(
             padding: EdgeInsets.all(15),
-            child: Text(widget.title + buycount.toString(), style: TextStyle(fontSize: 18),),
+            child: Text(widget.title + '   购买数量：' + pageRowData['quantity'].toString(), style: TextStyle(fontSize: 18),),
           ),
         ],
       ),
@@ -80,10 +116,21 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
 }
 
 class bottomSheetDliog extends StatefulWidget{
+  final Map pageRowData;
+  @override
+  bottomSheetDliog({Key key, this.pageRowData}) : super(key: key);
+
   State<StatefulWidget> createState() => new bottomSheetDliogState();
 }
-class bottomSheetDliogState extends State{
-  int buycount = 1;
+class bottomSheetDliogState extends State<bottomSheetDliog> {
+  Map pageRowData;
+
+  @override
+    void initState() {
+      super.initState();
+      pageRowData = widget.pageRowData;
+    }
+
   @override
   Widget build(BuildContext context){
     return new Container(
@@ -100,6 +147,7 @@ class bottomSheetDliogState extends State{
           new Positioned(
             top: -25,
             child: new Container(
+              width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.only(left: 15, right: 15),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,42 +168,44 @@ class bottomSheetDliogState extends State{
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text('¥89.8', style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),),
-                            Text('商品编号：001', style: TextStyle(fontSize: 16),)
+                            Text('¥' + pageRowData['price'].toString(), style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),),
+                            Text('商品编号：' + pageRowData['number'], style: TextStyle(fontSize: 16),)
                           ],
                         ),
                       ),
                     ],
                   ),
+                  //产品规格
                   new Padding(
                     padding: EdgeInsets.only(top: 15, bottom: 8),
                     child: Text('产品规格', style: TextStyle(fontSize: 20),),
                   ),
-                  new Row(
-                    children: <Widget>[
-                      new FlatButton(
-                        color: Color.fromARGB(255, 180, 10, 10),
-                        disabledColor: Color.fromARGB(255, 200, 10, 10),
-                        child: Text('时尚运动版', style: TextStyle(color: Colors.white),),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                  new Wrap(
+                    spacing: 8.0, // gap between adjacent chips
+                    runSpacing: 0,
+                    children: pageRowData['specifications'].map<Widget>((Map map){
+                      int index = pageRowData['specifications'].indexOf(map);
+                      return new Padding(
+                        padding: EdgeInsets.all(0),
+                        child: new FlatButton(
+                          color: pageRowData['selectSpecIndex'] == index ? Color.fromARGB(255, 200, 10, 10) : null,
+                          disabledColor: pageRowData['selectSpecIndex'] == index ? Color.fromARGB(255, 200, 10, 10) : null,
+                          child: Text(map['name'], style: TextStyle(color: pageRowData['selectSpecIndex'] == index ? Colors.white : Color.fromARGB(255, 200, 10, 10)),),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Color.fromARGB(255, 200, 10, 10)),
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                          onPressed: (){
+                            setState(() {
+                              pageRowData['selectSpecIndex'] = index;
+                            });
+                            eventBus.fire(new DataInterEvent(pageGlobalData: pageRowData));
+                          },
                         ),
-                        onPressed: null,
-                      ),
-                      Text('    '),
-                      new FlatButton(
-                        color: Color.fromARGB(255, 180, 10, 10),
-                        child: Text('炫动休闲版', style: TextStyle(color: Color.fromARGB(255, 200, 10, 10)),),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Color.fromARGB(255, 200, 10, 10)),
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        onPressed: null,
-                      ),
-                    ],
+                      );
+                    }).toList(),
                   ),
                   new Container(
-                    width: MediaQuery.of(context).size.width - 30,
                     padding: EdgeInsets.only(top: 15, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,18 +228,20 @@ class bottomSheetDliogState extends State{
                                 child: new GestureDetector(
                                   child: Icon(Icons.remove, size: 12,),
                                   onTap: (){
+                                    int tempcount = --pageRowData['quantity'];
                                     setState(() {
-                                      if(buycount > 1){
-                                        buycount --;
+                                      if(tempcount > 0){
+                                        pageRowData['quantity'] = tempcount; 
                                       }                
                                     });
+                                    eventBus.fire(new DataInterEvent(pageGlobalData: pageRowData));
                                   },
                                 ),
                               ),
                               Expanded(
                                 child: new Container(
                                   alignment: AlignmentDirectional.center,
-                                  child: Text(buycount.toString(), style: TextStyle(color: Colors.grey),),
+                                  child: Text(pageRowData['quantity'].toString(), style: TextStyle(color: Colors.grey),),
                                   decoration: BoxDecoration(
                                     color: Colors.grey[100],
                                   ),
@@ -200,9 +252,11 @@ class bottomSheetDliogState extends State{
                                 child: new GestureDetector(
                                   child: Icon(Icons.add, size: 12,),
                                   onTap: (){
+                                    int tempcount = ++pageRowData['quantity'];
                                     setState(() {
-                                      buycount ++;             
+                                      pageRowData['quantity'] = tempcount;           
                                     });
+                                    eventBus.fire(new DataInterEvent(pageGlobalData: pageRowData));
                                   },
                                 ),
                               ),
