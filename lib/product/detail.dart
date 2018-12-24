@@ -73,19 +73,6 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
               Navigator.pop(super.context);
             },
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.share, color: Colors.white,),
-              onPressed: (){
-                //弹出面板
-                Scaffold.of(context).showBottomSheet(
-                  (BuildContext context){
-                    return new bottomSheetDliog(pageRowData: pageRowData);
-                  }
-                );
-              },
-            ),
-          ],
           backgroundColor: Color.fromARGB(255, 255, 44, 37),
           // title: Text('产品详情'),
         )
@@ -97,9 +84,60 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
         padding: EdgeInsets.all(0),
         children: <Widget>[
           new Padding(
-            padding: EdgeInsets.all(15),
-            child: Text(widget.title + '   购买数量：' + pageRowData['quantity'].toString(), style: TextStyle(fontSize: 18),),
+            padding: EdgeInsets.only(top: 0, left: 15, right: 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('¥' + pageRowData['price'].toString(), style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),),
+                ButtonBar(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.star),
+                          onPressed: null,
+                        ),
+                        Text('收藏', style: TextStyle(fontSize: 12),),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.share),
+                          onPressed: null,
+                        ),
+                        Text('分享', style: TextStyle(fontSize: 12),),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
+          new Padding(
+            padding: EdgeInsets.only(left: 15, bottom: 15),
+            child: Text(widget.title, style: TextStyle(fontSize: 18),),
+          ),
+          new Divider(),
+          new Builder(
+            builder: (BuildContext context){
+              return new GestureDetector(
+                child: new Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  child: Text('已选 产品规格：' + pageRowData['specifications'][pageRowData['selectSpecIndex']]['name'] + '， 数量：' + pageRowData['quantity'].toString(), style: TextStyle(fontSize: 16, color: Colors.grey),),
+                ),
+                onTap: (){
+                  //弹出面板
+                  Scaffold.of(context).showBottomSheet(
+                    (BuildContext context){
+                      return new bottomSheetDliog(pageRowData: pageRowData);
+                    }
+                  );
+                },
+              );
+            },
+          ),
+          new Divider(),
         ],
       ),
     );
@@ -114,6 +152,9 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
     );
   }
 }
+
+
+/*---------------底部弹出框 ---------------------*/
 
 class bottomSheetDliog extends StatefulWidget{
   final Map pageRowData;
