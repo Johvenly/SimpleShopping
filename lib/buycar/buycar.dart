@@ -17,14 +17,14 @@ class BuycarState extends State<Buycar> with AutomaticKeepAliveClientMixin{
   }
 
   List<Map> _dataList = <Map>[
-    {'id':1, 'title': '520系列经典款式运动鞋', 'src': 'assets/images/short01.jpg', 'color': '墨绿色', 'size': 'L', 'price': 124.00, 'count':1, 'select': true},
-    {'id':2, 'title': '688清新款小白系帆布鞋', 'src': 'assets/images/short02.jpg', 'color': '白色', 'size': 'XL', 'price': 59.00, 'count':3, 'select': true},
-    {'id':3, 'title': '夏季时尚休闲商务皮鞋', 'src': 'assets/images/short03.jpg', 'color': '天蓝色', 'size': 'M', 'price': 59.00, 'count':1, 'select': false},
-    {'id':4, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '黄色', 'size': 'XS', 'price': 42.00, 'count':2, 'select': true},
-    {'id':5, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '米白色', 'size': 'XS', 'price': 42.00, 'count':1, 'select': true},
-    {'id':6, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '墨绿色', 'size': 'XS', 'price': 42.00, 'count':1, 'select': true},
-    {'id':7, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '墨绿色', 'size': 'XS', 'price': 42.00, 'count':1, 'select': true},
-    {'id':8, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '墨绿色', 'size': 'XS', 'price': 42.00, 'count':1, 'select': true},
+    {'id':1, 'title': '520系列经典款式运动鞋', 'src': 'assets/images/short01.jpg', 'color': '墨绿色', 'size': '38', 'price': 124.00, 'count':1, 'select': true},
+    {'id':2, 'title': '688清新款小白系帆布鞋', 'src': 'assets/images/short02.jpg', 'color': '白色', 'size': '41', 'price': 59.00, 'count':3, 'select': true},
+    {'id':3, 'title': '夏季时尚休闲商务皮鞋', 'src': 'assets/images/short03.jpg', 'color': '天蓝色', 'size': '43', 'price': 59.00, 'count':1, 'select': false},
+    {'id':4, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '黄色', 'size': '44', 'price': 42.00, 'count':2, 'select': true},
+    {'id':5, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '米白色', 'size': '42', 'price': 42.00, 'count':1, 'select': true},
+    {'id':6, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '墨绿色', 'size': '39', 'price': 42.00, 'count':1, 'select': true},
+    {'id':7, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '墨绿色', 'size': '40', 'price': 42.00, 'count':1, 'select': true},
+    {'id':8, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '墨绿色', 'size': '41', 'price': 42.00, 'count':1, 'select': true},
   ];
   bool _allSelect = false;
   int _countSelect = 0;

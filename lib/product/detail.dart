@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:event_bus/event_bus.dart';
 
-EventBus eventBus = new EventBus();
+EventBus eventBus;
 
 class DataInterEvent {
   Map pageGlobalData;
@@ -40,10 +40,12 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
       'quantity': 1,
     };
 
+    eventBus = new EventBus();
+
     eventBus.on<DataInterEvent>().listen((DataInterEvent data) =>
-      setState(() {
+      this.setState(() {
         pageRowData = data.pageGlobalData;
-      })
+      }),
     );
   }
 
@@ -80,64 +82,114 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
     }
 
     Widget _body = new Container(
-      child: new ListView(
-        padding: EdgeInsets.all(0),
+      child: new Stack(
+        overflow: Overflow.clip,
         children: <Widget>[
-          new Padding(
-            padding: EdgeInsets.only(top: 0, left: 15, right: 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('¥' + pageRowData['price'].toString(), style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),),
-                ButtonBar(
+          new ListView(
+            padding: EdgeInsets.all(0),
+            children: <Widget>[
+              new Padding(
+                padding: EdgeInsets.only(top: 0, left: 15, right: 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Column(
+                    Text('¥' + pageRowData['price'].toString(), style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),),
+                    ButtonBar(
                       children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.star),
-                          onPressed: null,
+                        Column(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.star),
+                              onPressed: null,
+                            ),
+                            Text('收藏', style: TextStyle(fontSize: 12),),
+                          ],
                         ),
-                        Text('收藏', style: TextStyle(fontSize: 12),),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.share),
-                          onPressed: null,
+                        Column(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.share),
+                              onPressed: null,
+                            ),
+                            Text('分享', style: TextStyle(fontSize: 12),),
+                          ],
                         ),
-                        Text('分享', style: TextStyle(fontSize: 12),),
                       ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          new Padding(
-            padding: EdgeInsets.only(left: 15, bottom: 15),
-            child: Text(widget.title, style: TextStyle(fontSize: 18),),
-          ),
-          new Divider(),
-          new Builder(
-            builder: (BuildContext context){
-              return new GestureDetector(
-                child: new Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
-                  child: Text('已选 产品规格：' + pageRowData['specifications'][pageRowData['selectSpecIndex']]['name'] + '， 数量：' + pageRowData['quantity'].toString(), style: TextStyle(fontSize: 16, color: Colors.grey),),
-                ),
-                onTap: (){
-                  //弹出面板
-                  Scaffold.of(context).showBottomSheet(
-                    (BuildContext context){
-                      return new bottomSheetDliog(pageRowData: pageRowData);
-                    }
+              ),
+              new Padding(
+                padding: EdgeInsets.only(left: 15, bottom: 15),
+                child: Text(widget.title, style: TextStyle(fontSize: 18),),
+              ),
+              new Divider(),
+              new Builder(
+                builder: (BuildContext context){
+                  return new GestureDetector(
+                    child: new Padding(
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      child: Text('已选 产品规格：' + pageRowData['specifications'][pageRowData['selectSpecIndex']]['name'] + '， 数量：' + pageRowData['quantity'].toString(), style: TextStyle(fontSize: 16, color: Colors.grey),),
+                    ),
+                    onTap: (){
+                      //弹出面板
+                      Scaffold.of(context).showBottomSheet(
+                        (BuildContext context){
+                          return new bottomSheetDliog(pageRowData: pageRowData);
+                        },
+                      );
+                    },
                   );
                 },
-              );
-            },
+              ),
+              new Divider(),
+            ],
           ),
-          new Divider(),
+          new Positioned(
+            width: MediaQuery.of(context).size.width,
+            height: 60,
+            bottom: 0,
+            child: new Container(
+              child: new Row(
+                children: <Widget>[
+                  Expanded(
+                    child: new Container(
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.zero),
+                        ),
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        color: Color.fromARGB(255, 180, 10, 10),
+                        disabledColor: Color.fromARGB(255, 180, 10, 10),
+                        child: Text('加入购物车', style: TextStyle(color: Colors.white),),
+                        onPressed: (){
+                          print('点击了加入购物车按钮');
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: new Container(
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.zero),
+                        ),
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        color: Color.fromARGB(255, 230, 10, 10),
+                        disabledColor: Color.fromARGB(255, 230, 10, 10),
+                        child: Text('立即购买', style: TextStyle(color: Colors.white),),
+                        onPressed: (){
+                          print('点击了立即购买按钮');
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -329,28 +381,47 @@ class bottomSheetDliogState extends State<bottomSheetDliog> {
           //底部按钮组
           new Positioned(
             width: MediaQuery.of(context).size.width,
-            height: 80,
+            height: 60,
             bottom: 0,
-            child: new Row(
-              children: <Widget>[
-                Expanded(
-                  child: FloatingActionButton(
-                    child: Text(' 加入购物车'),
-                    shape: Border(),
-                    backgroundColor: Color.fromARGB(255, 180, 10, 10),
-                    isExtended: true,
-                    onPressed: null,
+            child: new Container(
+              child: new Row(
+                children: <Widget>[
+                  Expanded(
+                    child: new Container(
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.zero),
+                        ),
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        color: Color.fromARGB(255, 180, 10, 10),
+                        disabledColor: Color.fromARGB(255, 180, 10, 10),
+                        child: Text('加入购物车', style: TextStyle(color: Colors.white),),
+                        onPressed: (){
+                          print('点击了加入购物车按钮');
+                        },
+                      ),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: FloatingActionButton(
-                    child: Text('立即购买'),
-                    shape: Border(),
-                    backgroundColor: Color.fromARGB(255, 230, 10, 10),
-                    onPressed: null,
+                  Expanded(
+                    child: new Container(
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.zero),
+                        ),
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        color: Color.fromARGB(255, 230, 10, 10),
+                        disabledColor: Color.fromARGB(255, 230, 10, 10),
+                        child: Text('立即购买', style: TextStyle(color: Colors.white),),
+                        onPressed: (){
+                          print('点击了立即购买按钮');
+                        },
+                      ),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ],
