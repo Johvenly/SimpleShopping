@@ -17,7 +17,7 @@ class BuycarState extends State<Buycar> with AutomaticKeepAliveClientMixin{
   }
 
   List<Map> _dataList = <Map>[
-    {'id':1, 'title': '520系列经典款式运动鞋', 'src': 'assets/images/short01.jpg', 'color': '墨绿色', 'size': '38', 'price': 124.00, 'count':1, 'select': true},
+    {'id':1, 'title': '男鞋运动鞋男气垫鞋2018年秋冬季新款男跑步鞋休闲鞋子2280', 'src': 'assets/images/short01.jpg', 'color': '墨绿色', 'size': '38', 'price': 124.00, 'count':1, 'select': true},
     {'id':2, 'title': '688清新款小白系帆布鞋', 'src': 'assets/images/short02.jpg', 'color': '白色', 'size': '41', 'price': 59.00, 'count':3, 'select': true},
     {'id':3, 'title': '夏季时尚休闲商务皮鞋', 'src': 'assets/images/short03.jpg', 'color': '天蓝色', 'size': '43', 'price': 59.00, 'count':1, 'select': false},
     {'id':4, 'title': '574系列经典款式运动鞋', 'src': 'assets/images/short04.jpg', 'color': '黄色', 'size': '44', 'price': 42.00, 'count':2, 'select': true},
@@ -56,7 +56,7 @@ class BuycarState extends State<Buycar> with AutomaticKeepAliveClientMixin{
     Widget _li(int index){
       return new GestureDetector(
         child: new Container(
-          height: 120,
+          height: 135,
           margin: EdgeInsets.only(top: 8, left: 8),
           decoration: BoxDecoration(color: Colors.white,),
           child: new Row(
@@ -89,7 +89,11 @@ class BuycarState extends State<Buycar> with AutomaticKeepAliveClientMixin{
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(_dataList[index]['title']),
+                      new Container(
+                        height: 40,
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Text(_dataList[index]['title'], maxLines: 2,),
+                      ),
                       Text('颜色：' + _dataList[index]['color'], style: TextStyle(height: 1.5, color: Colors.grey),),
                       Text('尺寸：' + _dataList[index]['size'], style: TextStyle(color: Colors.grey)), 
                       Row(

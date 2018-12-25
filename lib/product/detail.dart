@@ -67,7 +67,7 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
             // title: Text('我是一个FlexibleSpaceBar',),
-            background: Image.asset('assets/images/lake.jpg', fit: BoxFit.cover,),
+            background: Image.asset('assets/images/ad04.jpg', fit: BoxFit.cover,),
           ),
           leading: IconButton(
             icon: BackButtonIcon(),
@@ -81,58 +81,133 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
       ];
     }
 
+    Widget _commentli(){
+      return new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Padding(
+            padding: EdgeInsets.all(0),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new Row(
+                  children: <Widget>[
+                    new CircleAvatar(backgroundImage: new AssetImage('assets/images/avatar.jpg'), radius: 10),
+                    Text(' Johwen Chou')
+                  ],
+                ),
+                new Row(
+                  children: <Widget>[
+                    Icon(Icons.star, size: 16, color: Colors.red,),
+                    Icon(Icons.star, size: 16, color: Colors.red,),
+                    Icon(Icons.star, size: 16, color: Colors.red,),
+                    Icon(Icons.star_border, size: 16, color: Colors.red,),
+                    Icon(Icons.star_border, size: 16, color: Colors.red,),
+                  ],
+                )
+              ],
+            ),
+          ),
+          new Padding(
+            padding: EdgeInsets.only(top: 8, bottom: 8),
+            child: Text('鞋子很透气，穿起来非常舒服，很不错！'),
+          ),
+          new Wrap(
+            spacing: 10,
+            runSpacing: 5,
+            children: <Widget>[
+              Image.asset('assets/images/short05.jpg', width: MediaQuery.of(context).size.width / 4 - 15, height: MediaQuery.of(context).size.width / 4 - 10,),
+              Image.asset('assets/images/short01.jpg', width: MediaQuery.of(context).size.width / 4 - 15, height: MediaQuery.of(context).size.width / 4 - 10,),
+              Image.asset('assets/images/short05.jpg', width: MediaQuery.of(context).size.width / 4 - 15, height: MediaQuery.of(context).size.width / 4 - 10,),
+              Image.asset('assets/images/short05.jpg', width: MediaQuery.of(context).size.width / 4 - 15, height: MediaQuery.of(context).size.width / 4 - 10,),
+              // Image.asset('assets/images/short05.jpg', width: MediaQuery.of(context).size.width / 4 - 15, height: MediaQuery.of(context).size.width / 4 - 10,),
+            ],
+          ),
+          new Padding(
+            padding: EdgeInsets.only(top: 8, bottom: 0),
+            child: Text('墨绿色； 24', style: TextStyle(fontSize: 14, color: Colors.grey),),
+          ),
+          new Divider(height: 24,),
+        ],
+      );
+    }
+
     Widget _body = new Container(
+      color: Colors.grey[100],
       child: new Stack(
         overflow: Overflow.clip,
         children: <Widget>[
           new ListView(
             padding: EdgeInsets.all(0),
             children: <Widget>[
-              new Padding(
-                padding: EdgeInsets.only(top: 0, left: 15, right: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //标题等内容
+              new Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(left: 15, bottom: 20),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('¥' + pageRowData['price'].toString(), style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),),
-                    ButtonBar(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.star),
-                              onPressed: null,
-                            ),
-                            Text('收藏', style: TextStyle(fontSize: 12),),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.share),
-                              onPressed: null,
-                            ),
-                            Text('分享', style: TextStyle(fontSize: 12),),
-                          ],
-                        ),
-                      ],
+                    new Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('¥' + pageRowData['price'].toString(), style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),),
+                          ButtonBar(
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(Icons.star),
+                                    onPressed: null,
+                                  ),
+                                  Text('收藏', style: TextStyle(fontSize: 12, height: 0.5),),
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(Icons.share),
+                                    onPressed: null,
+                                  ),
+                                  Text('分享', style: TextStyle(fontSize: 12, height: 0.5),),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    new Padding(
+                      padding: EdgeInsets.only(bottom: 8),
+                      child: Text(widget.title + '  ' + pageRowData['specifications'][pageRowData['selectSpecIndex']]['name'], style: TextStyle(fontSize: 18),),
+                    ),
+                    new Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Text('【圣诞特惠】官方正品保证，支持七天无理由退换货，领劵199减20，399减50', style: TextStyle(fontSize: 14, color: Colors.black54),),
                     ),
                   ],
                 ),
               ),
-              new Padding(
-                padding: EdgeInsets.only(left: 15, bottom: 15),
-                child: Text(widget.title, style: TextStyle(fontSize: 18),),
-              ),
-              new Divider(),
+
+              //规格选择Box
               new Builder(
                 builder: (BuildContext context){
                   return new GestureDetector(
-                    child: new Padding(
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                      child: Text('已选 产品规格：' + pageRowData['specifications'][pageRowData['selectSpecIndex']]['name'] + '， 数量：' + pageRowData['quantity'].toString(), style: TextStyle(fontSize: 16, color: Colors.grey),),
+                    child: new Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                      margin: EdgeInsets.only(top: 12, bottom: 12),
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('已选 产品规格：' + pageRowData['specifications'][pageRowData['selectSpecIndex']]['name'] + '， ' + pageRowData['quantity'].toString() + '件', style: TextStyle(fontSize: 16, color: Colors.grey),),
+                          Icon(Icons.more_horiz, color: Colors.black54,),
+                        ],
+                      ),
                     ),
                     onTap: (){
-                      //弹出面板
+                      //触发弹出面板
                       Scaffold.of(context).showBottomSheet(
                         (BuildContext context){
                           return new bottomSheetDliog(pageRowData: pageRowData);
@@ -142,9 +217,46 @@ class DetailState extends State<Detail> with TickerProviderStateMixin {
                   );
                 },
               ),
-              new Divider(),
+
+              //评价
+              new Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(15),
+                child: new Column(
+                  children: <Widget>[
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Row(
+                          children: <Widget>[
+                            Icon(Icons.local_florist, color: Colors.red, size: 18,),
+                            Text('评价(35453)'),
+                          ],
+                        ),
+                        new Row(
+                          children: <Widget>[
+                            Text('好评度 '),
+                            Text('99%', style: TextStyle(color: Colors.red),),
+                            Icon(Icons.chevron_right, color: Colors.black54,)
+                          ],
+                        ),
+                      ],
+                    ),
+                    new Divider(height: 24,),
+                    
+                    new Column(
+                      children: <Widget>[
+                        _commentli(),
+                        _commentli(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
+
+          //底部按钮组
           new Positioned(
             width: MediaQuery.of(context).size.width,
             height: 60,
