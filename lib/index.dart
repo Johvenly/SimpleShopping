@@ -6,12 +6,12 @@ import 'mine/mine.dart';
 
 class Index extends StatefulWidget {
   @override
-  State<StatefulWidget> createState()  => new IndexState();
+  IndexState createState()  => new IndexState();
 }
 
 class IndexState extends State<Index>{
   @override
-  int _currentIndex = 0;            //当前索引
+  int _currentIndex = 0;            //当前页面索引
   var _pageList = <StatefulWidget>[
     new Home(),
     new Classify(),
@@ -39,7 +39,7 @@ class IndexState extends State<Index>{
       fixedColor: Colors.green,
       onTap: (index){
         setState(() {
-          _currentIndex = index;        
+          _currentIndex = index;      //修改当前页面索引  
         });
       },
     );

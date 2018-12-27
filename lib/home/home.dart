@@ -5,10 +5,14 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import '../public/badge.dart';
 
 class Home extends StatefulWidget{
+  @override
   State<StatefulWidget> createState() => new HomeState();
 }
 
-class HomeState extends State{
+class HomeState extends State with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context){
     List _slides = <Widget>[

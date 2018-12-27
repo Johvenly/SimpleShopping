@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../public/badge.dart';
+import '../auth/login.dart';
 
 class Mine extends StatefulWidget{
   State<StatefulWidget> createState() => new MineState();
 }
 
 class MineState extends State{
+  final bool _isLogin = false;
   @override
   Widget build(BuildContext context){
     Widget _body = new Container(
@@ -22,14 +24,23 @@ class MineState extends State{
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 44, 37),
                 ),
-                child: new Column(
-                  children: <Widget>[
-                    new CircleAvatar(backgroundImage: new AssetImage('assets/images/avatar.jpg'), radius: 50),
-                    new Container(
-                      child: Text('Johwen Chou', style: TextStyle(color: Colors.white, fontSize: 16),),
-                      margin: EdgeInsets.only(top: 8),
-                    )
-                  ],
+                //头像/登录块
+                child: new GestureDetector(
+                  child: new Column(
+                    children: <Widget>[
+                      new CircleAvatar(backgroundImage: new AssetImage('assets/images/avatar.jpg'), radius: 50),
+                      new Container(
+                        child: Text('Johwen Chou', style: TextStyle(color: Colors.white, fontSize: 16),),
+                        margin: EdgeInsets.only(top: 8),
+                      )
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.of(super.context).push(
+                      new MaterialPageRoute(
+                          builder: (BuildContext context) => new Login()),
+                    );
+                  },
                 ),
               ),
             ),

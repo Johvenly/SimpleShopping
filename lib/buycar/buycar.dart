@@ -161,8 +161,9 @@ class BuycarState extends State<Buycar> with AutomaticKeepAliveClientMixin{
         onTap: (){
           Navigator.of(super.context).push(
             new MaterialPageRoute(
-                builder: (BuildContext context) => new Detail(title: _dataList[index]['title'])));
-            },
+                builder: (BuildContext context) => new Detail(title: _dataList[index]['title'])),
+          );
+        },
       );
     }
 
