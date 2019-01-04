@@ -16,25 +16,38 @@ class LoginState extends State<Login>{
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          //头部背景
-          new ClipPath(
-            clipper: BottomClipper(),
-            child: new Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 44, 37),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/bg_login.png',),
-                  fit: BoxFit.cover,
-                  alignment: AlignmentDirectional.topCenter,
+          new Stack(
+            children: <Widget>[
+              //头部背景
+              new ClipPath(
+                clipper: BottomClipper(),
+                child: new Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 255, 44, 37),
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/bg_login.png',),
+                      fit: BoxFit.fitWidth,
+                      alignment: AlignmentDirectional.topCenter,
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  child: new Center(
+                    child: Text('读万卷书，行千里路', style:TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white), textAlign: TextAlign.center,),
+                  ),
                 ),
               ),
-              width: MediaQuery.of(context).size.width,
-              height: 180,
-              child: new Padding(
-                padding: EdgeInsets.only(top: 60),
-                child: Text('读万卷书，行千里路', style:TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white), textAlign: TextAlign.center,),
+              new AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                leading: IconButton(
+                  icon: BackButtonIcon(),
+                  onPressed: (){
+                    Navigator.pop(super.context);
+                  },
+                ),
               ),
-            ),
+            ],
           ),
 
           //表单列表
@@ -126,16 +139,6 @@ class LoginState extends State<Login>{
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Color.fromARGB(255, 255, 44, 37),
-          leading: IconButton(
-            icon: BackButtonIcon(),
-            onPressed: (){
-              Navigator.pop(super.context);
-            },
-          ),
-        ),
         body: _body,
       ),
     );
